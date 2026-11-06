@@ -1,34 +1,20 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        from collections import deque
-
-        if len(s) % 2 != 0:
-            return False
-
-        stk = deque()
+        bracket_stack = deque()
         for b in s:
-            if b == "(":
-                stk.appendleft("(")
-            elif b == "[":
-                stk.appendleft("[")
-            elif b == "{":
-                stk.appendleft("{")
+            #push open brackets to stack top
+            if b == '(' or b == '{' or b == '[':
+                bracket_stack.append(b)
+
+            #pop from top if not matching return false
+            elif b == ')' and bracket_stack and bracket_stack[-1] == '(':
+                bracket_stack.pop()
+            elif b == '}' and bracket_stack and bracket_stack[-1] == '{':
+                bracket_stack.pop()
+            elif b == ']' and bracket_stack and bracket_stack[-1] == '[':
+                bracket_stack.pop()
             
-            if len(stk) == 0:
+            else:
                 return False
-
-            if len(stk) != 0:
-                if b == ")" and stk[0] != "(":
-                    return False
-                elif b == ")" and stk[0] == "(":
-                    stk.popleft()
-                if b == "]" and stk[0] != "[":
-                    return False
-                elif b == "]" and stk[0] == "[":
-                    stk.popleft()
-                if b == "}" and stk[0] != "{":
-                    return False
-                elif b == "}" and stk[0] == "{":
-                    stk.popleft()
-
-        return len(stk) == 0 
+        #check if anything remains
+        return len(bracket_stack) == 0
