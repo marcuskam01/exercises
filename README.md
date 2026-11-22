@@ -1,3 +1,3 @@
 # exercises
 
-Some SQL/Python problems I've solved on interview preparation sites
+Some SQL/Python problems I've solved on leetcode. Solutions and logic available.
